@@ -1,9 +1,6 @@
 import axios from "axios";
 import dotenv from 'dotenv';
 import ffmpeg from 'fluent-ffmpeg';
-import nodeSpeech from 'node-speech';
-const { SpeechClient } = nodeSpeech;
-
 
 dotenv.config();
 
@@ -12,13 +9,12 @@ const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 
 export const generateQuestions = async ({ jobTitle, jobDescription, experience }) => {
   try {
-    const prompt = `Generate 5 online interview  questions to ask orally for a ${jobTitle} role.which doesnt require
+    const prompt = `Generate 5 online interview questions to ask orally for a ${jobTitle} role which doesn't require
                    code execution.
                    The job description is: ${jobDescription}. 
                    The required experience is ${experience} years. 
                    Return only a JSON array like this: 
-                   ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5"].
-                   `;
+                   ["Question 1", "Question 2", "Question 3", "Question 4", "Question 5"].`;
 
     const response = await fetch(GROQ_API_URL, {
       method: "POST",
@@ -46,25 +42,22 @@ export const generateQuestions = async ({ jobTitle, jobDescription, experience }
       throw new Error("Groq API response is missing 'choices'");
     }
 
-    const messageContent = data.choices[0].message.content.trim(); // Access `message.content`
+    const messageContent = data.choices[0].message.content.trim();
 
-    // Extract JSON array from the response
     const jsonMatch = messageContent.match(/\[.*\]/s);
     if (!jsonMatch) {
       throw new Error("Groq API response does not contain a valid JSON array.");
     }
 
-    return JSON.parse(jsonMatch[0]); // Extracted JSON array
+    return JSON.parse(jsonMatch[0]);
   } catch (error) {
     console.error("Error calling Groq API:", error.message);
     throw new Error("Failed to generate questions");
   }
 };
 
-
 export const evaluateAnswer = async (questionAnswerPairs) => {
   try {
-    
     const prompt = `Evaluate the following interview answers while ignoring minor spelling mistakes:
       ${questionAnswerPairs
         .map((qa, index) => `\n${index + 1}. Q: "${qa.question}" A: "${qa.answer}"`)
@@ -81,15 +74,13 @@ export const evaluateAnswer = async (questionAnswerPairs) => {
       ]
     `;
 
-    
-
     const response = await axios.post(
       GROQ_API_URL,
       {
         model: "llama-3.3-70b-versatile",
         messages: [{ role: "user", content: prompt }],
         temperature: 0.7,
-        response_format: { type: "json_object" },  
+        response_format: { type: "json_object" },
       },
       {
         headers: {
@@ -99,19 +90,16 @@ export const evaluateAnswer = async (questionAnswerPairs) => {
       }
     );
 
-    // Extracting evaluation results
     const feedbackResults = response.data?.choices?.[0]?.message?.content;
-    
+
     if (!feedbackResults) {
       throw new Error("Invalid response structure from API");
     }
 
-    
-    return JSON.parse(feedbackResults); // Ensure it's correctly parsed JSON
+    return JSON.parse(feedbackResults);
 
   } catch (error) {
     console.error("Error evaluating answers:", error.response?.data || error.message);
     throw new Error("Failed to evaluate answers");
   }
 };
-
