@@ -8,7 +8,7 @@ const useContactStore = create((set) => ({
   submitContact: async (formData) => {
     try {
       set({ isSubmitting: true, error: null });
-      const response = await fetch("http://localhost:5000/aiinterview/contact/submit", {
+      const response = await fetch("https://ai-backend-q9ta.onrender.com/aiinterview/contact/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -30,7 +30,7 @@ const useContactStore = create((set) => ({
 
   fetchUserContacts: async () => {
     try {
-      const response = await fetch("http://localhost:5000/aiinterview/contact/history", {
+      const response = await fetch("https://ai-backend-q9ta.onrender.com/aiinterview/contact/history", {
         credentials: "include"
       });
       

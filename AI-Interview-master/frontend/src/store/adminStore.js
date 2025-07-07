@@ -12,7 +12,7 @@ const useAdminStore = create((set) => ({
   loginAdmin: async (credentials) => {
     try {
       set({ isLoading: true, error: null });
-      const response = await fetch("http://localhost:5000/aiinterview/admin/login", {
+      const response = await fetch("https://ai-backend-q9ta.onrender.com/aiinterview/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
@@ -35,7 +35,7 @@ const useAdminStore = create((set) => ({
   fetchDashboardStats: async () => {
     try {
       set({ isLoading: true, error: null });
-      const response = await fetch("http://localhost:5000/aiinterview/admin/dashboard-stats", {
+      const response = await fetch("https://ai-backend-q9ta.onrender.com/aiinterview/admin/dashboard-stats", {
         credentials: "include"
       });
       
@@ -55,7 +55,7 @@ const useAdminStore = create((set) => ({
   fetchUsers: async () => {
     try {
       set({ isLoading: true, error: null });
-      const response = await fetch("http://localhost:5000/aiinterview/admin/users", {
+      const response = await fetch("https://ai-backend-q9ta.onrender.com/aiinterview/admin/users", {
         credentials: "include"
       });
       
@@ -73,7 +73,7 @@ const useAdminStore = create((set) => ({
   deleteUser: async (userId) => {
     try {
       set({ isLoading: true, error: null });
-      const response = await fetch(`http://localhost:5000/aiinterview/admin/users/${userId}`, {
+      const response = await fetch(`https://ai-backend-q9ta.onrender.com/aiinterview/admin/users/${userId}`, {
         method: "DELETE",
         credentials: "include"
       });
@@ -93,7 +93,7 @@ const useAdminStore = create((set) => ({
   fetchUserDetails: async (userId) => {
     try {
       set({ isLoading: true, error: null });
-      const response = await fetch(`http://localhost:5000/aiinterview/admin/users/${userId}`, {
+      const response = await fetch(`https://ai-backend-q9ta.onrender.com/aiinterview/admin/users/${userId}`, {
         credentials: "include"
       });
       
@@ -111,7 +111,7 @@ const useAdminStore = create((set) => ({
   fetchComplaints: async () => {
     try {
       set({ isLoading: true, error: null });
-      const response = await fetch("http://localhost:5000/aiinterview/admin/complaints", {
+      const response = await fetch("https://ai-backend-q9ta.onrender.com/aiinterview/admin/complaints", {
         credentials: "include"
       });
       
@@ -131,7 +131,7 @@ const useAdminStore = create((set) => ({
   updateComplaint: async (complaintId, { status, adminResponse }) => {
     try {
       set({ isLoading: true, error: null });
-      const response = await fetch(`http://localhost:5000/aiinterview/admin/complaints/${complaintId}`, {
+      const response = await fetch(`https://ai-backend-q9ta.onrender.com/aiinterview/admin/complaints/${complaintId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status, adminResponse }),

@@ -14,12 +14,11 @@ const useInterviewStore = create(
         set({ isLoadingQuestions: true, error: null });
 
         try {
-          
-          const response = await axios.post("http://localhost:5000/aiinterview/interview/start", {
-            jobTitle,
-            jobDescription,
-            experience
-          }, { withCredentials: true });
+          const response = await axios.post(
+            "https://ai-backend-q9ta.onrender.com/aiinterview/interview/start",
+            { jobTitle, jobDescription, experience },
+            { withCredentials: true }
+          );
 
           set({
             interviewId: response.data.interviewId,
@@ -35,64 +34,63 @@ const useInterviewStore = create(
         }
       },
 
-      submitAnswer: async (interviewId,questionIndex, responseText) => {
-        console.log(responseText);
+      submitAnswer: async (interviewId, questionIndex, responseText) => {
         try {
-          const result = await axios.post(`http://localhost:5000/aiinterview/interview/${interviewId}/submit-answer`, {
-            questionIndex,
-            responseText
-          }, { withCredentials: true });
+          await axios.post(
+            `https://ai-backend-q9ta.onrender.com/aiinterview/interview/${interviewId}/submit-answer`,
+            { questionIndex, responseText },
+            { withCredentials: true }
+          );
           return true;
-
         } catch (err) {
           console.error("Error submitting answer:", err);
           return false;
         }
       },
 
-      getInterviewFeedback:async(userId,interviewId)=>{
+      getInterviewFeedback: async (userId, interviewId) => {
         try {
-          const result = await axios.get(`http://localhost:5000/aiinterview/interview/feedback/${userId}/${interviewId}`,
-          { withCredentials: true });
+          const result = await axios.get(
+            `https://ai-backend-q9ta.onrender.com/aiinterview/interview/feedback/${userId}/${interviewId}`,
+            { withCredentials: true }
+          );
           return result;
-
         } catch (err) {
-          console.error("Error submitting answer:", err);
+          console.error("Error fetching interview feedback:", err);
         }
       },
 
       getPastInterviews: async (userId) => {
         try {
           const result = await axios.get(
-            `http://localhost:5000/aiinterview/interview/history/${userId}`,
-            { withCredentials: true } 
+            `https://ai-backend-q9ta.onrender.com/aiinterview/interview/history/${userId}`,
+            { withCredentials: true }
           );
           console.log(result);
           return result;
         } catch (err) {
-          console.error("Error Fetching Interview History:", err);
+          console.error("Error fetching interview history:", err);
         }
       },
-      
-      getRetakeInterviewQuestions: async (interviewId)=>{
+
+      getRetakeInterviewQuestions: async (interviewId) => {
         try {
           const result = await axios.get(
-            `http://localhost:5000/aiinterview/interview/retake/${interviewId}`,
-            { withCredentials: true } 
+            `https://ai-backend-q9ta.onrender.com/aiinterview/interview/retake/${interviewId}`,
+            { withCredentials: true }
           );
           console.log(result);
           set({
-            interviewId:interviewId,
-            interviewQuestions:result.data
-          })
+            interviewId: interviewId,
+            interviewQuestions: result.data
+          });
           return true;
         } catch (err) {
-          console.error("Error Fetching Retake Interview QUestions:", err);
+          console.error("Error fetching retake interview questions:", err);
           return false;
         }
       },
-      
-      
+
       resetInterview: () => {
         set({ interviewId: null, interviewQuestions: [] });
       }
