@@ -49,9 +49,38 @@ A full-stack AI-powered mock interview platform that simulates real interviews u
 
 ---
 
-## 📸 Screenshots
+# 🧠 Intelli View - AI Mock Interview Platform
 
-*(Add screenshots if needed)*
+Welcome to **Intelli View**, an AI-powered mock interview platform designed to help users practice and prepare for technical interviews.
+
+---
+
+## 🔐 Login Page
+![Login Page](images/image1.png)
+
+## 📝 Sign Up Page
+![Sign Up Page](images/image2.png)
+
+## 📊 Dashboard
+![Dashboard](images/image3.png)
+
+## 🚀 Start New Interview
+![Start Interview](images/image4.png)
+
+## 💬 Feedback Page
+![Feedback Page](images/image5.png)
+
+## 👤 Profile Section
+![Profile](images/image6.png)
+
+## 🔍 Find People Feature
+![Find People](images/image7.png)
+
+## 🛠️ Admin Panel
+![Admin Panel](images/image8.png)
+
+## 📈 Interview Results Summary
+![Results Summary](images/image9.png)
 
 ---
 
