@@ -49,8 +49,7 @@ A full-stack AI-powered mock interview platform that simulates real interviews u
 
 ---
 
-## 📸 Screenshots
-
+## 📸 Screenshot
 *(Add screenshots if needed)*
 
 ---
